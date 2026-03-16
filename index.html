@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AEPS — AI Network Threat Monitor</title>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-title">AI Network Threat Monitor</span>
+  </div>
+
+<div class="status" id="backendStatus">
+  Backend: <span class="dot disconnected"></span> disconnected
+</div>
+<div class="firewall-controls">
+  <button id="fwToggleBtn" class="fw-btn off">Firewall OFF</button>
+</div>
+
+</header>
+
+<main class="layout">
+
+<!-- ================= REAL-TIME LOGS ================= -->
+<section class="card logs-card">
+  <div class="card-head">
+    <div>
+      <h2>Real-time Logs</h2>
+    </div>
+
+    <!-- Counters -->
+    <div class="mini-metrics">
+      <div class="metric">
+        <span class="metric-label">Total Events</span>
+        <span class="metric-value" id="totalEvents">0</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">High Alerts</span>
+        <span class="metric-value high" id="highAlertCount">0</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrap" id="logsWrap">
+    <table class="events-table">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Src</th>
+          <th>Dst</th>
+          <th>Service</th>
+          <th>Proto</th>
+          <th>Bytes</th>
+          <th>Duration</th>
+          <th>Severity</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody id="eventsTbody"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= ALERTS + DEVICES (SAME ROW) ================= -->
+<section class="alerts-devices-row">
+
+  <!-- Alerts Panel -->
+  <section class="card alerts-card">
+    <div class="card-head">
+      <div>
+        <h2>Threat Alerts</h2>
+        <p class="muted small">Medium & High severity detections</p>
+      </div>
+    </div>
+    <div class="alerts-list" id="alertsList"></div>
+  </section>
+
+  <!-- Devices Panel -->
+  <section class="card devices-card">
+    <div class="card-head devices-head">
+      <div>
+        <h2>Connected Devices</h2>
+        <p class="muted small">Observed via Zeek traffic</p>
+      </div>
+    </div>
+
+    <div class="table-wrap devices-wrap">
+      <table class="events-table devices-table">
+        <thead>
+          <tr>
+            <th>IP</th>
+            <th>MAC</th>
+            <th>Status</th>
+            <th>Last Seen</th>
+          </tr>
+        </thead>
+        <tbody id="devicesTbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+</section>
+
+
+<!-- ================= CHARTS ================= -->
+<section class="card charts-row">
+  <div class="chart-card">
+    <h3>Events per Minute</h3>
+    <canvas id="timelineChart"></canvas>
+  </div>
+
+  <div class="chart-card">
+    <h3>Protocol Distribution</h3>
+    <canvas id="protocolChart"></canvas>
+  </div>
+
+  <div class="chart-card">
+    <h3>Top Talkers</h3>
+    <canvas id="talkersChart"></canvas>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  AEPS • Zeek + ML + Suricata • Real-time Network Defense
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
